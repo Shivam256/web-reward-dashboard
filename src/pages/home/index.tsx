@@ -66,8 +66,10 @@ const Home = () => {
   const router = useRouter();
   return (
     <div className="min-w-7xl mx-auto max-w-7xl">
-      <h1 className="mt-5 px-2 text-lg font-semibold">ACCOUNT DETAILS</h1>
-      <div className="flex w-3/5 gap-8 p-2">
+      <h1 className="mt-5 p-0 text-lg font-semibold md:px-2">
+        ACCOUNT DETAILS
+      </h1>
+      <div className="flex w-full flex-col gap-8 p-0  md:w-3/5 md:flex-row md:p-2">
         <Card className="flex flex-1 cursor-pointer items-center gap-5">
           <Icon icon="el:key" width="75px" height="75px" />
           <div className="flex-1">
@@ -88,7 +90,7 @@ const Home = () => {
         </Card>{" "}
       </div>
       <h1 className="mt-5 px-2 text-lg font-semibold">DASHBOARD</h1>
-      <div className="flex w-full gap-8 p-2">
+      <div className="flex w-full flex-col gap-3 p-2 md:flex-row md:gap-8 ">
         <Card
           className="flex flex-1 cursor-pointer items-center gap-5"
           onClick={() => {
@@ -96,16 +98,16 @@ const Home = () => {
             router.push("/projects");
           }}
         >
-          <div className="text-5xl font-bold">
+          <div className="w-1/5 text-center text-2xl font-semibold md:w-fit md:text-5xl md:font-bold ">
             <CountUp end={5} duration={1} />{" "}
           </div>
           <div>
-            <div className="text-xl font-semibold">Projects</div>
+            <div className="text-lg font-semibold md:text-xl">Projects</div>
             <div className="font-normal text-gray-500">View all projects!</div>
           </div>
         </Card>
         <Card className="flex flex-1 cursor-pointer items-center gap-5">
-          <div className="text-5xl font-bold">
+          <div className="w-1/5 text-center text-2xl font-semibold md:w-fit md:text-5xl md:font-bold ">
             <CountUp end={2.3} decimal="." decimals={1} duration={1} /> k
           </div>
           <div>
@@ -114,7 +116,7 @@ const Home = () => {
           </div>
         </Card>{" "}
         <Card className="flex flex-1 cursor-pointer items-center gap-5">
-          <div className="text-5xl font-bold">
+          <div className="w-1/5 text-center text-2xl font-semibold md:w-fit md:text-5xl md:font-bold ">
             <CountUp end={3} duration={1} />
           </div>
           <div>
@@ -126,7 +128,7 @@ const Home = () => {
       <h1 className="mt-5 px-2 text-lg font-semibold">OVERALL ANALYTICS</h1>
       <div className="mt-4 h-fit w-full rounded-2xl p-5 shadow-shadow1">
         <h1 className="mb-5 font-semibold">USER LOGINS</h1>
-        <div className="h-64 w-4/5">
+        <div className="h-64 w-full  md:w-4/5">
           <ResponsiveContainer height="100%" width="100%">
             <LineChart
               width={730}

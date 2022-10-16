@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 const Project = () => {
   return (
     <div className="min-w-7xl mx-auto max-w-7xl">
-      <div className="relative h-fit w-3/4 rounded-2xl pb-10 shadow-shadow1">
+      <div className="relative h-fit w-full md:w-3/4 rounded-2xl pb-10 shadow-shadow1">
         <img
           src="https://images.unsplash.com/photo-1493210977798-4f655ac200a9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=652&q=80"
           alt=""
@@ -16,7 +16,7 @@ const Project = () => {
           <img
             src="https://images.unsplash.com/photo-1559102877-4a2cc0e37fce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=757&q=80"
             alt=""
-            className="h-40 w-40 translate-y-20 rounded-full border-8 border-white"
+            className="h-32 w-32 md:h-40 md:w-40 translate-y-16 md:translate-y-20 rounded-full border-8 border-white"
           />
           <h1 className="mb-2 text-3xl font-bold text-white opacity-80">
             #77681973
