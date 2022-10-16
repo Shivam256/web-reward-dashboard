@@ -36,16 +36,16 @@ const SignIn: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="box-border flex h-screen w-screen bg-background">
+      <main className="box-border flex flex-col md:flex-row h-screen w-screen bg-background ">
         <div className="grid h-full flex-1 place-items-center bg-primary ">
           {/* <Image src="/assets/gift.svg" alt="" width={500} height={500} /> */}
           <div className="h-2/3 w-3/5">
             <Lottie options={defaultOptions} width="100%" height="100%" />
           </div>
         </div>
-        <div className="flex h-full flex-1 flex-col items-center justify-center p-4">
+        <div className="flex h-full flex-1 flex-col items-center justify-center p-1 md:p-4">
           <div className="flex w-4/5 flex-col gap-4 text-text1">
-            <h1 className="text-4xl font-bold text-secondary">
+            <h1 className="text-3xl md:text-4xl font-bold text-secondary">
               WEB REWARD SYSTEM
             </h1>
             <h2 className="font-sans text-xl">
