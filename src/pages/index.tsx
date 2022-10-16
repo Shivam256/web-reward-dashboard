@@ -1,14 +1,32 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Lottie from "react-lottie";
+import RewadLottie from "../assets/reward-landing.json";
 
-const Home: NextPage = () => {
+const SignIn: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: RewadLottie,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/home");
+    }
+  }, [session]);
 
   return (
     <>
@@ -20,7 +38,10 @@ const Home: NextPage = () => {
 
       <main className="box-border flex h-screen w-screen bg-background">
         <div className="grid h-full flex-1 place-items-center bg-primary ">
-          <Image src="/assets/gift.svg" alt="" width={500} height={500} />
+          {/* <Image src="/assets/gift.svg" alt="" width={500} height={500} /> */}
+          <div className="h-2/3 w-3/5">
+            <Lottie options={defaultOptions} width="100%" height="100%" />
+          </div>
         </div>
         <div className="flex h-full flex-1 flex-col items-center justify-center p-4">
           <div className="flex w-4/5 flex-col gap-4 text-text1">
@@ -45,4 +66,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default SignIn;

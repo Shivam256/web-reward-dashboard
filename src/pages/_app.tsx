@@ -8,14 +8,29 @@ import type { AppType } from "next/app";
 import type { AppRouter } from "../server/router";
 import type { Session } from "next-auth";
 import "../styles/globals.css";
+import AuthGuard from "../layouts/Authlayout";
+import { NextPage } from "next";
+
+export type NextApplicationPage<P = any, IP = P> = NextPage<P, IP> & {
+  requireAuth?: boolean;
+};
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
+}: {
+  Component: NextApplicationPage;
+  pageProps: any;
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      {Component.requireAuth ? (
+        <AuthGuard>
+          <Component {...pageProps} />
+        </AuthGuard>
+      ) : (
+        <Component />
+      )}
     </SessionProvider>
   );
 };
