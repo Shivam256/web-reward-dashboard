@@ -23,7 +23,7 @@ const CustomInput = ({
   type,
   inputClass,
 }: CustomInputProps) => {
-  const [isFocused, setFocused] = useState<Boolean>(!(value == "") || false);
+  const [isFocused, setFocused] = useState<boolean>(!(value == "") || false);
 
   useEffect(() => {
     if (value != "") {
