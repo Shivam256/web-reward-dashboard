@@ -13,6 +13,7 @@ type CustomInputProps = {
   onChange: ChangeEventHandler<HTMLInputElement>;
   type?: HTMLInputTypeAttribute;
   inputClass?: string;
+  autofocus?: boolean;
 };
 
 const CustomInput = ({
@@ -22,6 +23,7 @@ const CustomInput = ({
   onChange,
   type,
   inputClass,
+  autofocus,
 }: CustomInputProps) => {
   const [isFocused, setFocused] = useState<boolean>(!(value == "") || false);
 
@@ -41,7 +43,7 @@ const CustomInput = ({
   };
 
   return (
-    <div className="w-full relative flex flex-col">
+    <div className="relative flex w-full flex-col">
       <input
         type={type || "text"}
         className={`bg-background1 w-full border-b-2 border-b-black outline-none ${inputClass} `}
@@ -50,6 +52,7 @@ const CustomInput = ({
         onBlur={toggleFocus}
         name={name}
         id={name}
+        autoFocus={autofocus}
       />
       <label
         htmlFor={name}

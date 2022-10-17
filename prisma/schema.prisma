@@ -53,6 +53,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Project       Project[]
 }
 
 model VerificationToken {
@@ -64,7 +65,12 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model Test {
-    id  String @id @default(auto()) @map("_id") @db.ObjectId
-    name String
+model Project {
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    owner       User?   @relation(fields: [ownerId], references: [id])
+    ownerId     String  @db.ObjectId
+    image       String?
+    bannerImage String?
+    projectKey  String?
 }

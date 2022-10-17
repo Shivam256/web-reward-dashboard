@@ -15,7 +15,16 @@ module.exports = {
       },
       boxShadow: {
         shadow1: "0px 8px 20px rgba(35, 35, 35, 0.1)",
-        shadow2:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+        shadow2: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+      },
+      keyframes: {
+        appear: {
+          "0%": { background: "#fff" },
+          "100%": { background: "rgba(0,0,0,0.74)" },
+        },
+      },
+      animation: {
+        appear: "appear 0.2s ease-in-out 1",
       },
     },
   },
