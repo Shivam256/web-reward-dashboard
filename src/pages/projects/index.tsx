@@ -42,8 +42,8 @@ const Projects = () => {
         <h1 className="text-xl font-medium text-gray-500 ">
           {user?.projects.length} Projects{" "}
         </h1>
-        {[...Array(5)].map((project, idx) => (
-          <ProjectOverview key={idx} />
+        {user?.projects.map((project, idx) => (
+          <ProjectOverview key={idx} project={project} />
         ))}
       </div>
     </div>

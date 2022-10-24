@@ -1,14 +1,14 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import { Project } from "../../interfaces/project.interface";
 
 type ProjectProps = {
-  name?: string;
-  image?: string;
+  project: Project;
   key: number;
 };
 
-const ProjectOverview = (project: ProjectProps) => {
+const ProjectOverview = ({ project }: ProjectProps) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ const ProjectOverview = (project: ProjectProps) => {
         <div className="flex w-full flex-col justify-between gap-2">
           <div className="flex w-full items-center justify-between">
             <h1 className="text-xl font-medium text-text1 md:text-3xl">
-              Workfloe
+              {project.name}
             </h1>
             <Icon icon="akar-icons:star" />
           </div>
@@ -41,7 +41,7 @@ const ProjectOverview = (project: ProjectProps) => {
           <div className="hidden items-center gap-2 md:flex ">
             <h1 className="text-sm font-semibold">KEY:</h1>
             <div className=" text-sm font-normal text-gray-400 ">
-              wekawd9qnfi23832id83wcknj
+              {project.projectKey || "-"}
             </div>
           </div>
           <div className="flex w-full justify-end">
