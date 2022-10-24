@@ -1,25 +1,21 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import CustomInput from "../../components/CustomInput/CustomInput.component";
 import ProjectOverview from "../../components/ProjectOverview/ProjectOverview.component";
 import { trpc } from "../../utils/trpc";
 import { useSession } from "next-auth/react";
+import { useBoundStore } from "../../store/store";
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data: session } = useSession();
+  const user = useBoundStore((state) => state.user);
 
-  const { isLoading, data } = trpc.useQuery(
-    ["user.userData", { id: session?.user?.id || "wekfweln" }],
-    {
-      onSuccess: (data) => {
-        console.log(data, "roweifjwoelkfmwemlk");
-      },
-    }
-  );
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <div className="min-w-7xl mx-auto max-w-7xl">
@@ -43,7 +39,9 @@ const Projects = () => {
         </button>
       </div>
       <div className="flex w-full flex-col gap-5">
-        <h1 className="text-xl font-medium text-gray-500 ">3 Projects </h1>
+        <h1 className="text-xl font-medium text-gray-500 ">
+          {user?.projects.length} Projects{" "}
+        </h1>
         {[...Array(5)].map((project, idx) => (
           <ProjectOverview key={idx} />
         ))}

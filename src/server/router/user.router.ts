@@ -14,8 +14,7 @@ export const userRouter = createRouter()
           projects: true,
         },
       });
-
-      console.log(user, "this is the user shuiiiiii!");
+      
       return {
         msg: "User Project fetched ",
         user: user,

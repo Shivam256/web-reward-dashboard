@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Card from "../../components/Card/card.component";
 import CountUp from "react-countup";
 import { trpc } from "../../utils/trpc";
+import { useBoundStore } from "../../store/store";
 import {
   LineChart,
   XAxis,
@@ -68,11 +69,14 @@ const Home = () => {
 
   const { data: session } = useSession();
 
+  const setUser = useBoundStore((state) => state.setUser);
+
   const { isLoading, data, refetch } = trpc.useQuery(
     ["user.userData", { id: session?.user?.id || "" }],
     {
       onSuccess: (data) => {
-        console.log(data, "roweifjwoelkfmwemlk");
+        console.log(data, "the data is here");
+        setUser(data?.user || null);
       },
     }
   );
@@ -103,7 +107,7 @@ const Home = () => {
       <div className="mt-5 flex w-full items-center justify-between gap-5">
         <h1 className="p-0 text-lg font-semibold md:px-2">ACCOUNT DETAILS</h1>
         <button
-          className="flex items-center gap-2  rounded-md bg-primary py-1 px-8 text-sm text-text3"
+          className="flex items-center gap-2  rounded-md bg-primary py-2 px-8 text-sm text-text3"
           onClick={handleGenerateKey}
         >
           GENERATE <Icon icon="el:key" width="20px" height="20px" />
@@ -151,7 +155,7 @@ const Home = () => {
           }}
         >
           <div className="w-1/5 text-center text-2xl font-semibold md:w-fit md:text-5xl md:font-bold ">
-            <CountUp end={5} duration={1} />{" "}
+            <CountUp end={data?.user?.projects.length || 0} duration={1} />{" "}
           </div>
           <div>
             <div className="text-lg font-semibold md:text-xl">Projects</div>
