@@ -22,9 +22,14 @@ module.exports = {
           "0%": { background: "#fff" },
           "100%": { background: "rgba(0,0,0,0.74)" },
         },
+        scl: {
+          "0%": { bottom:'-10vh', },
+          "100%": { bottom:'50vh'},
+        },
       },
       animation: {
-        appear: "appear 0.2s ease-in-out 1",
+        appear: "appear 0.2s ease-in-out forwards",
+        scl: "scl 0.3s ease-in-out forwards",
       },
     },
   },

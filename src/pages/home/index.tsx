@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import { Icon } from "@iconify/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Card from "../../components/Card/card.component";
 import CountUp from "react-countup";
+import { trpc } from "../../utils/trpc";
 import {
   LineChart,
   XAxis,
@@ -17,7 +18,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
+const data1 = [
   {
     name: "Page A",
     uv: 4000,
@@ -64,30 +65,81 @@ const data = [
 
 const Home = () => {
   const router = useRouter();
+
+  const { data: session } = useSession();
+
+  const { isLoading, data, refetch } = trpc.useQuery(
+    ["user.userData", { id: session?.user?.id || "" }],
+    {
+      onSuccess: (data) => {
+        console.log(data, "roweifjwoelkfmwemlk");
+      },
+    }
+  );
+
+  const keyMutation = trpc.useMutation(["user.generateKeys"], {
+    onSuccess: (data) => {
+      console.log(data, "hehehehe");
+      refetch();
+    },
+  });
+
+  const handleGenerateKey = () => {
+    keyMutation.mutate({
+      id: session?.user?.id || "",
+    });
+  };
+
+  const handleCopyText = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  if (isLoading) {
+    return <h1>loading....</h1>;
+  }
+
   return (
     <div className="min-w-7xl mx-auto max-w-7xl">
-      <h1 className="mt-5 p-0 text-lg font-semibold md:px-2">
-        ACCOUNT DETAILS
-      </h1>
+      <div className="mt-5 flex w-full items-center justify-between gap-5">
+        <h1 className="p-0 text-lg font-semibold md:px-2">ACCOUNT DETAILS</h1>
+        <button
+          className="flex items-center gap-2  rounded-md bg-primary py-1 px-8 text-sm text-text3"
+          onClick={handleGenerateKey}
+        >
+          GENERATE <Icon icon="el:key" width="20px" height="20px" />
+        </button>
+      </div>
       <div className="flex w-full flex-col gap-8 p-0  md:w-3/5 md:flex-row md:p-2">
-        <Card className="flex flex-1 cursor-pointer items-center gap-5">
+        <Card
+          className="flex flex-1 cursor-pointer items-center gap-5"
+          onClick={() => {
+            handleCopyText(data?.user?.apiKey || "");
+          }}
+        >
           <Icon icon="el:key" width="75px" height="75px" />
           <div className="flex-1">
             <div className="text-xl font-semibold">API KEY</div>
             <div className="font-normal text-gray-500">
-              ewekadknwefwekd87wkej8knweu
+              {data?.user?.apiKey || "-"}
             </div>
           </div>
+          <Icon icon="fluent:copy-16-filled" width="25px" height="25px" />
         </Card>
-        <Card className="flex flex-1 cursor-pointer items-center gap-5">
+        <Card
+          className="flex flex-1 cursor-pointer items-center gap-5"
+          onClick={() => {
+            handleCopyText(data?.user?.apiSecret || "");
+          }}
+        >
           <Icon icon="bi:shield-lock-fill" width="75px" height="75px" />
           <div className="flex-1">
             <div className="text-xl font-semibold">API SECRET</div>
             <div className="font-normal text-gray-500">
-              ewekadknwefwekd87wkej8knweu
+              {data?.user?.apiSecret || "-"}
             </div>
           </div>
-        </Card>{" "}
+          <Icon icon="fluent:copy-16-filled" width="25px" height="25px" />
+        </Card>
       </div>
       <h1 className="mt-5 px-2 text-lg font-semibold">DASHBOARD</h1>
       <div className="flex w-full flex-col gap-3 p-2 md:flex-row md:gap-8 ">
@@ -133,7 +185,7 @@ const Home = () => {
             <LineChart
               width={730}
               height={250}
-              data={data}
+              data={data1}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <CartesianGrid strokeDasharray="3 3" />

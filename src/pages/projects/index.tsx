@@ -5,14 +5,26 @@ import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 import CustomInput from "../../components/CustomInput/CustomInput.component";
 import ProjectOverview from "../../components/ProjectOverview/ProjectOverview.component";
+import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const { data: session } = useSession();
+
+  const { isLoading, data } = trpc.useQuery(
+    ["user.userData", { id: session?.user?.id || "wekfweln" }],
+    {
+      onSuccess: (data) => {
+        console.log(data, "roweifjwoelkfmwemlk");
+      },
+    }
+  );
 
   return (
     <div className="min-w-7xl mx-auto max-w-7xl">
-      <div className="mt-3 mb-8 w-full md:w-3/4 rounded-xl p-5 shadow-shadow1">
-        <h1 className="text-xl md:text-3xl font-medium text-primary">
+      <div className="mt-3 mb-8 w-full rounded-xl p-5 shadow-shadow1 md:w-3/4">
+        <h1 className="text-xl font-medium text-primary md:text-3xl">
           Search your projects!
         </h1>
         <div className="mt-7 w-full md:w-3/4">
