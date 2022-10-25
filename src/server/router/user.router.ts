@@ -1,8 +1,8 @@
-import { createRouter } from "./context";
+import { createProtectedRouter } from "./context";
 import * as Inputs from "../inputs/user.inputs";
 import { uid } from "uid";
 
-export const userRouter = createRouter()
+export const userRouter = createProtectedRouter()
   .query("userData", {
     input: Inputs.UserIdInput,
     async resolve({ ctx, input }) {

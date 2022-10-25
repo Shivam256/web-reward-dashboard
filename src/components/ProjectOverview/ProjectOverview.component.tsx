@@ -12,7 +12,7 @@ const ProjectOverview = ({ project }: ProjectProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/projects/wekslfwkel");
+    router.push(`/projects/${project.projectId}`);
   };
 
   return (

@@ -8,9 +8,15 @@ import ProjectOverview from "../../components/ProjectOverview/ProjectOverview.co
 import { trpc } from "../../utils/trpc";
 import { useSession } from "next-auth/react";
 import { useBoundStore } from "../../store/store";
+import CreateProjectModal from "../../components/CreateProjectModal/CreateProjectModal.component";
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
+
+  const toggleProjectModal = () => {
+    setShowProjectModal(!showProjectModal);
+  };
   const user = useBoundStore((state) => state.user);
 
   useEffect(() => {
@@ -42,9 +48,30 @@ const Projects = () => {
         <h1 className="text-xl font-medium text-gray-500 ">
           {user?.projects.length} Projects{" "}
         </h1>
-        {user?.projects.map((project, idx) => (
-          <ProjectOverview key={idx} project={project} />
-        ))}
+        {user?.projects.length === 0 ? (
+          <div className="mt-5 flex w-full flex-col items-center">
+            <h1 className="text-3xl font-semibold text-primary">
+              You dont have any project right now!
+            </h1>
+            <p className="text-lg text-text2">
+              Create some awesome projects to see them here
+            </p>
+            <button
+              className="mt-5 h-fit w-fit rounded-md bg-primary py-1 px-6 text-sm font-medium text-white"
+              onClick={toggleProjectModal}
+            >
+              CREATE 
+            </button>
+            <CreateProjectModal
+              state={showProjectModal}
+              toggleModal={toggleProjectModal}
+            />
+          </div>
+        ) : (
+          user?.projects.map((project, idx) => (
+            <ProjectOverview key={idx} project={project} />
+          ))
+        )}
       </div>
     </div>
   );

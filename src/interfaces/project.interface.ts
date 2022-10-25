@@ -7,3 +7,20 @@ export interface Project {
   projectKey: string | null;
   projectId: string | null;
 }
+
+export interface ProjectData {
+  banners: string[];
+  images: string[];
+}
+
+export interface tech {
+  id: string;
+  name: string;
+  iconName: string;
+  disabled?: boolean;
+}
+
+export interface TechStack {
+  frontend: tech[];
+  backend: tech[];
+}

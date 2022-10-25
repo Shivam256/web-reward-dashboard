@@ -3,6 +3,7 @@ import Modal from "../Modal/modal.component";
 import CustomInput from "../CustomInput/CustomInput.component";
 import { trpc } from "../../utils/trpc";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 type ProjectModalProps = {
   state: boolean;
@@ -12,12 +13,14 @@ type ProjectModalProps = {
 const CreateProjectModal = ({ state, toggleModal }: ProjectModalProps) => {
   const [name, setName] = useState<string>("");
   const { data } = useSession();
+  const router = useRouter();
 
-  const createProjectMutation = trpc.useMutation(["project.createByName"], {
+  const createProjectMutation = trpc.useMutation(["project.create"], {
     onError: (err) => {
       console.log(err, "error");
     },
     onSuccess: (data) => {
+      router.push(`/projects/${data.project.projectId}/starterDetails`);
       console.log(data, "succewss");
     },
   });
