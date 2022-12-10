@@ -10,11 +10,11 @@ export const projectRouter = createProtectedRouter()
     async resolve({ ctx, input }) {
       const { name, ownerId } = input;
       console.log(name, ownerId);
-      let img =
+      const img =
         projectData.images[
           Math.floor(Math.random() * projectData.images.length)
         ];
-      let banner =
+      const banner =
         projectData.images[
           Math.floor(Math.random() * projectData.banners.length)
         ];
