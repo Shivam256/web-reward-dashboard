@@ -47,7 +47,7 @@ const ProjectActivity = () => {
   return (
     <div className="min-w-7xl mx-auto max-w-7xl gap-8">
       <h1 className="text-2xl font-semibold">
-        User activity for project {data.project.name}
+        User activity for project {data?.project?.name}
       </h1>
       <div className="mt-8 h-fit w-full rounded-lg p-3 shadow-shadow1">
         <div className="mb-5 flex w-full justify-between">
