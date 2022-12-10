@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { ProjectUser } from "../../../../interfaces/project.interface";
 
 type UserActivityOverviewProps = {
-  user: ProjectUser;
+  user: any;
   key: number;
 };
 
@@ -15,11 +15,13 @@ const ProjectUserActivityOverview = ({ user }: UserActivityOverviewProps) => {
   };
   return (
     <div className="flex w-full justify-between">
-      <div className="w-1/5">{user.userId || user.id}</div>
-      <div className="w-1/5">{user.name || "-"}</div>
-      <div className="w-1/5">{user.clicks || 0}</div>
-      <div className="w-1/5">{(user.duration / 60).toFixed(2) || "-"}</div>
-      <div className="w-1/5">{getRewardValue(user.clicks, user.duration)}</div>
+      <div className="w-1/5">{user?.userId || user?.id || "-"}</div>
+      <div className="w-1/5">{user?.name || "-"}</div>
+      <div className="w-1/5">{user?.clicks || 0}</div>
+      <div className="w-1/5">{(user?.duration / 60).toFixed(2) || "-"}</div>
+      <div className="w-1/5">
+        {getRewardValue(user?.clicks, user?.duration)}
+      </div>
     </div>
   );
 };
