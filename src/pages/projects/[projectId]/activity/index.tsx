@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { useRouter } from "next/router";
 
-import { ProjectUser } from "../../../../interfaces/project.interface.ts";
+import { ProjectUser } from "../../../../interfaces/project.interface";
 
 type UserActivityOverviewProps = {
   user: ProjectUser;
