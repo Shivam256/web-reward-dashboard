@@ -35,7 +35,7 @@ export const projectRouter = createProtectedRouter()
       };
     },
   })
-  .query("gerOne", {
+  .query("getOne", {
     input: Inputs.ProjectIdInput,
     async resolve({ ctx, input }) {
       const project = await ctx.prisma.project.findFirst({
@@ -44,6 +44,8 @@ export const projectRouter = createProtectedRouter()
         },
         include: {
           owner: true,
+          techStack: true,
+          users: true,
         },
       });
 
@@ -56,17 +58,24 @@ export const projectRouter = createProtectedRouter()
   .mutation("starterDetails", {
     input: Inputs.ProjectStarterDetailsInput,
     async resolve({ ctx, input }) {
+      const tc = await ctx.prisma.techStack.create({
+        data: {
+          frontend: [input.frontend],
+          backend: [input.backend],
+        },
+      });
       const project = await ctx.prisma.project.update({
         where: {
-          id: input.id,
+          projectId: input.id,
         },
         data: {
           projectKey: uid(12),
+          techStackId: tc.id,
         },
       });
       if (!project) throw new TRPCError({ code: "NOT_FOUND" });
       return {
-        message:"Project updated successfully!u"
-      }
+        message: "Project updated successfully!u",
+      };
     },
   });

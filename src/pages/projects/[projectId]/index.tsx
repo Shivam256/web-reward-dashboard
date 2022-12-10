@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import { trpc } from "../../../utils/trpc";
 import { useRouter } from "next/router";
+import CustomButton from "../../../components/CustomButton/customButton.component";
 
 const Project = () => {
   const router = useRouter();
   const { projectId } = router.query;
 
   const { data, isLoading } = trpc.useQuery(
-    ["project.gerOne", { id: projectId?.toString() || "hhe" }],
+    ["project.getOne", { id: projectId?.toString() || "hhe" }],
     {
       onSuccess: (data) => {
         console.log(data, "he he he , see here i am");
@@ -23,6 +24,24 @@ const Project = () => {
 
   const handleTextCopy = (text: string) => {
     navigator.clipboard.writeText(text);
+  };
+
+  const handleActivityClick = () => {
+    router.push(`/projects/${projectId}/activity`);
+  };
+
+  const getData = (users) => {
+    let clicks = 0;
+    let duration = 0;
+    users.forEach((u) => {
+      clicks += u.clicks;
+      duration += u.duration;
+    });
+
+    return {
+      clicks,
+      duration,
+    };
   };
 
   if (isLoading) {
@@ -77,7 +96,7 @@ const Project = () => {
           ) : null}
           <div className="mt-2 flex w-full gap-5">
             <div className="rounded-lg border-2 border-primary p-2 px-4 text-sm text-primary">
-              120 users
+              {data.project?.users?.length || 0} active users
             </div>
             <div className="rounded-lg border-2 border-primary p-2 px-4 text-sm text-primary">
               8 reward models
@@ -85,7 +104,40 @@ const Project = () => {
           </div>
         </div>
       </div>
-      <div className="h-44 flex-1 rounded-xl p-4 shadow-shadow1">hello</div>
+      <div className="flex h-fit flex-1 flex-col gap-8">
+        <div className="h-fit rounded-xl p-4 shadow-shadow1 flex flex-col gap-2">
+          <h1 className="mb-2 font-semibold">Project Statistics</h1>
+          <h1>
+            <span className="text-xl font-semibold">
+              {data.project.users.length}
+            </span>{" "}
+            active users{" "}
+          </h1>
+          <h1>
+            <span className="text-xl font-semibold">
+              {getData(data.project.users).clicks}
+            </span>{" "}
+            total clicks
+          </h1>
+          <h1>
+            <span className="text-xl font-semibold">
+              {getData(data.project.users).duration}
+            </span>{" "}
+            min spent
+          </h1>
+        </div>
+        <div className="flex h-fit flex-col items-center gap-3 rounded-xl p-4 shadow-shadow1">
+          <button
+            className="h-fit w-full rounded-md bg-primary py-2 text-white"
+            onClick={handleActivityClick}
+          >
+            VIEW USER ACTIVITY
+          </button>
+          <button className="h-fit w-full rounded-md bg-secondary py-2 text-white">
+            CREATE REWARD MODEL
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

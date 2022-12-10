@@ -15,7 +15,7 @@ const ProjectStarterDetails = () => {
   const [backendStack, setBackendStack] = useState<string>("");
 
   const { data, isLoading } = trpc.useQuery(
-    ["project.gerOne", { id: projectId?.toString() || "hhe" }],
+    ["project.getOne", { id: projectId?.toString() || "hhe" }],
     {
       onSuccess: (data) => {
         console.log(data, "he he he , see here i am");
@@ -23,8 +23,24 @@ const ProjectStarterDetails = () => {
     }
   );
 
+  const starterMutation = trpc.useMutation(["project.starterDetails"], {
+    onSuccess: (data) => {
+      console.log(data);
+      router.push(`/projects/${projectId}`);
+    },
+  });
+
   const handleClick = () => {
-    console.log(frontEndStack, backendStack, "hehehe");
+    if (frontEndStack === "" || backendStack === "") {
+      alert("Please fill the fields");
+      return;
+    }
+    const data = {
+      frontend: frontEndStack,
+      backend: backendStack,
+      id: projectId?.toString() || "",
+    };
+    starterMutation.mutate(data);
   };
 
   if (isLoading) {
@@ -71,7 +87,11 @@ const ProjectStarterDetails = () => {
               ))}
             </div>
           </div>
-          <CustomButton onClick={handleClick} className="text-md mt-5">
+          <CustomButton
+            onClick={handleClick}
+            className="text-md mt-5"
+            isLoading={starterMutation.isLoading}
+          >
             FINISH
           </CustomButton>
         </div>

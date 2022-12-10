@@ -16,7 +16,7 @@ const Modal = ({ open, toggleModal, children, modalClass }: ModalProps) => {
     <>
       {open ? (
         <div
-          className="absolute top-0 left-0 z-50 grid h-screen w-screen cursor-default place-items-center bg-[rgba(0,0,0,0.74)]"
+          className="absolute top-0 left-0 z-50 grid h-screen w-screen cursor-default overflow-y-hidden place-items-center bg-[rgba(0,0,0,0.74)]"
           onClick={toggleModal}
         >
           <div

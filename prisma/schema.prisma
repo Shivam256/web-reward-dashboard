@@ -75,19 +75,31 @@ model TechStack {
     Project    Project[]
 }
 
+model ProjectUser {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String?
+    userId    String?
+    image     String?
+    clicks    Int?
+    duration  Int?
+    Project   Project? @relation(fields: [projectId], references: [id])
+    projectId String?  @db.ObjectId
+}
+
 model Project {
-    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    id          String        @id @default(auto()) @map("_id") @db.ObjectId
     name        String
-    owner       User?     @relation(fields: [ownerId], references: [id])
-    ownerId     String    @db.ObjectId
+    owner       User?         @relation(fields: [ownerId], references: [id])
+    ownerId     String        @db.ObjectId
     image       String?
     bannerImage String?
     projectKey  String?
-    projectId   String?   @unique
-    isActive    Boolean?  @default(true)
+    projectId   String?       @unique
+    isActive    Boolean?      @default(true)
     allowedUrls String[]
-    techStack   TechStack @relation(fields: [techStackId], references: [id])
-    techStackId String    @db.ObjectId
+    techStack   TechStack?    @relation(fields: [techStackId], references: [id])
+    techStackId String?       @db.ObjectId
+    users       ProjectUser[]
 }
 
 model Test {

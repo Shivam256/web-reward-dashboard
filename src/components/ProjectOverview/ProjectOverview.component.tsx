@@ -12,16 +12,21 @@ const ProjectOverview = ({ project }: ProjectProps) => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/projects/${project.projectId}`);
+    if(project.projectKey){
+      router.push(`/projects/${project.projectId}`);
+
+    }else{
+      router.push(`/projects/${project.projectId}/starterDetails`)
+    }
   };
 
   return (
     <div className="h-28 w-full rounded-xl p-2 shadow-shadow1 transition-all duration-200 ease-in hover:shadow-shadow2 md:h-40 md:w-3/4">
       <div className="flex h-full w-full gap-6">
         <img
-          src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80"
+          src={project.image || "https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=772&q=80"}
           alt=""
-          className="h-full w-24 rounded-xl md:w-32"
+          className="h-full w-24 rounded-xl md:w-40"
         />
         <div className="flex w-full flex-col justify-between gap-2">
           <div className="flex w-full items-center justify-between">

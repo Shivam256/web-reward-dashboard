@@ -29,7 +29,7 @@ module.exports = {
       },
       animation: {
         appear: "appear 0.2s ease-in-out forwards",
-        scl: "scl 0.3s ease-in-out forwards",
+        scl: "scl 0.4s ease-in-out forwards",
       },
     },
   },

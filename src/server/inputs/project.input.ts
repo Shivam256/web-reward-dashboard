@@ -12,5 +12,5 @@ export const ProjectIdInput = z.object({
 export const ProjectStarterDetailsInput = z.object({
   frontend: z.string(),
   backend: z.string(),
-  id: z.string(),
+  id: z.string() ,
 });
