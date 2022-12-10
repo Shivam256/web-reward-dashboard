@@ -24,3 +24,12 @@ export interface TechStack {
   frontend: tech[];
   backend: tech[];
 }
+
+export interface ProjectUser {
+  userId: string;
+  id: string;
+  name: string;
+  clicks: number;
+  duration: number;
+  projectId: string | null;
+}
