@@ -30,7 +30,7 @@ const Project = () => {
     router.push(`/projects/${projectId}/activity`);
   };
 
-  const getData = (users) => {
+  const getData = (users: any) => {
     let clicks = 0;
     let duration = 0;
     users.forEach((u) => {
@@ -105,7 +105,7 @@ const Project = () => {
         </div>
       </div>
       <div className="flex h-fit flex-1 flex-col gap-8">
-        <div className="h-fit rounded-xl p-4 shadow-shadow1 flex flex-col gap-2">
+        <div className="flex h-fit flex-col gap-2 rounded-xl p-4 shadow-shadow1">
           <h1 className="mb-2 font-semibold">Project Statistics</h1>
           <h1>
             <span className="text-xl font-semibold">
