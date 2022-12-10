@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { trpc } from "../../../../utils/trpc";
 import { useRouter } from "next/router";
 
-const ProjectUserActivityOverview = ({ user }) => {
+
+
+const ProjectUserActivityOverview = ({ user: any }) => {
   const getRewardValue = (clicks = 0, duration = 0) => {
     return Math.floor(clicks / 100) + Math.floor(duration / 60);
   };
