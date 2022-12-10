@@ -33,9 +33,9 @@ const Project = () => {
   const getData = (users: any) => {
     let clicks = 0;
     let duration = 0;
-    users.forEach((u) => {
-      clicks += u.clicks;
-      duration += u.duration;
+    users.forEach((u: any) => {
+      clicks += u?.clicks || 0;
+      duration += u?.duration || 0;
     });
 
     return {
